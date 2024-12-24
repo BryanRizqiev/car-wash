@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -44,9 +45,6 @@ use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
-// Main Page Route
-Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
-
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
 Route::get('/layouts/without-navbar', [WithoutNavbar::class, 'index'])->name('layouts-without-navbar');
@@ -62,8 +60,6 @@ Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-e
 Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
 
 // authentication
-Route::get('/auth/login', [LoginBasic::class, 'index'])->name('auth-login-basic');
-Route::get('/auth/register', [RegisterBasic::class, 'index'])->name('auth-register');
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 
 // cards
@@ -108,8 +104,12 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 // tables
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
 
+Route::get('/', [Analytics::class, 'index'])->middleware('auth')->name('dashboard-analytics');
+
 Route::prefix('auth')->group(function () {
-  Route::get('/users', function () {
-    // Matches The "/admin/users" URL
-  });
+  Route::get('/login', [AuthController::class, 'loginIndex'])->name('login');
+  Route::get('/register', [AuthController::class, 'registerIndex'])->name('register');
+  Route::post('/register', [AuthController::class, 'register'])->name('register.store');
+  Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+  Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
