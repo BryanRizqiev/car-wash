@@ -12,6 +12,14 @@
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner py-6 mx-4">
 
+                @session('error')
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        {{ $value }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                @endsession
+
                 <!-- Register Card -->
                 <div class="card p-7">
                     <!-- Logo -->
@@ -27,7 +35,8 @@
                         <h4 class="mb-1">Registration Form 🚀</h4>
                         <p class="mb-5">Register to create a account</p>
 
-                        <form id="formAuthentication" class="mb-5" action="{{ url('/') }}" method="GET">
+                        <form id="formAuthentication" class="mb-5" action="{{ route('register.store') }}" method="POST">
+                            @csrf
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="username" name="username"
                                     placeholder="Enter your username" autofocus required>
@@ -40,7 +49,7 @@
                             </div>
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter your name">
+                                    placeholder="Enter your name" required>
                                 <label for="name">Name</label>
                             </div>
                             <div class="mb-5 form-password-toggle">
@@ -56,6 +65,16 @@
                                     </span>
                                 </div>
                             </div>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
                             <button class="btn btn-primary d-grid w-100 mb-5">
                                 Sign up

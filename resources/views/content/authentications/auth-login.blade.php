@@ -11,6 +11,22 @@
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner py-6 mx-4">
 
+                @session('success')
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        {{ $value }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                @endsession
+
+                @session('error')
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        {{ $value }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                @endsession
+
                 <!-- Login -->
                 <div class="card p-7">
                     <!-- Logo -->
@@ -27,11 +43,12 @@
                         <h4 class="mb-1">Welcome to {{ config('variables.templateName') }}! 👋🏻</h4>
                         <p class="mb-5">Please sign-in to your account</p>
 
-                        <form id="formAuthentication" class="mb-5" action="{{ url('/') }}" method="GET">
+                        <form id="formAuthentication" class="mb-5" action="{{ route('login.store') }}" method="POST">
+                            @csrf
                             <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="email" name="email-username"
-                                    placeholder="Enter your username" autofocus>
-                                <label for="email">Username</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    placeholder="Enter your username" autofocus required>
+                                <label for="username">Username</label>
                             </div>
                             <div class="mb-5">
                                 <div class="form-password-toggle">
@@ -39,7 +56,7 @@
                                         <div class="form-floating form-floating-outline">
                                             <input type="password" id="password" class="form-control" name="password"
                                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="password" />
+                                                aria-describedby="password" required />
                                             <label for="password">Password</label>
                                         </div>
                                         <span class="input-group-text cursor-pointer"><i
@@ -52,13 +69,24 @@
                                     <span>Forgot Password?</span>
                                 </a>
                             </div>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <div class="mb-5">
                                 <button class="btn btn-primary d-grid w-100" type="submit">login</button>
                             </div>
                         </form>
 
                         <p class="text-center mb-5">
-                            <span>New on our platform?</span>
+                            <span>New on our app?</span>
                             <a href="{{ url('auth/register') }}">
                                 <span>Create an account</span>
                             </a>
