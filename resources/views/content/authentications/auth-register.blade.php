@@ -12,13 +12,7 @@
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner py-6 mx-4">
 
-                @session('error')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        {{ $value }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        </button>
-                    </div>
-                @endsession
+                @include('shared.alert')
 
                 <!-- Register Card -->
                 <div class="card p-7">

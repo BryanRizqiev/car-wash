@@ -16,6 +16,8 @@ use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
+use App\Http\Controllers\car\CarController;
+use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\cards\CardBasic;
 use App\Http\Controllers\user_interface\Accordion;
 use App\Http\Controllers\user_interface\Alerts;
@@ -104,7 +106,20 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 // tables
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
 
-Route::get('/', [Analytics::class, 'index'])->middleware('auth')->name('dashboard-analytics');
+Route::get('/', [Analytics::class, 'index'])->middleware('auth')->name('main');
+
+Route::group(['prefix' => 'car', 'middleware' => 'auth'], function () {
+  Route::get('/', [CarController::class, 'index'])->name('car');
+});
+
+Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function () {
+  Route::get('/', [CustomerController::class, 'index'])->name('customer');
+  Route::get('/new', [CustomerController::class, 'create'])->name('customer.new');
+  Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+  Route::post('/{id}/update', [CustomerController::class, 'update'])->name('customer.update');
+  Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
+  Route::post('/{id}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
+});
 
 Route::prefix('auth')->group(function () {
   Route::get('/login', [AuthController::class, 'loginIndex'])->name('login');

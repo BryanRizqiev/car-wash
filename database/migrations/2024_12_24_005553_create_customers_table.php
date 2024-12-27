@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('address');
             $table->integer('money_spend');
             $table->integer('wash_total');
-            $table->dateTime('last_wash_time');
+            $table->dateTime('last_wash_time')->nullable();
             $table->unsignedBigInteger('created_by', false);
 
             $table->timestamps();
