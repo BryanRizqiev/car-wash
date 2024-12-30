@@ -110,6 +110,11 @@ Route::get('/', [Analytics::class, 'index'])->middleware('auth')->name('main');
 
 Route::group(['prefix' => 'car', 'middleware' => 'auth'], function () {
   Route::get('/', [CarController::class, 'index'])->name('car');
+  Route::get('/new', [CarController::class, 'create'])->name('car.new');
+  Route::get('/{id}/edit', [CarController::class, 'edit'])->name('car.edit');
+  Route::post('/{id}/update', [CarController::class, 'update'])->name('car.update');
+  Route::post('/store', [CarController::class, 'store'])->name('car.store');
+  Route::post('/{id}/delete', [CarController::class, 'delete'])->name('car.delete');
 });
 
 Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function () {

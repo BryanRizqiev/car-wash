@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nopol');
             $table->string('car_colour');
             $table->integer('price');
-            $table->enum('status', ['Selesai', 'Belum Selesai', 'Menunggu']);
+            $table->enum('status', ['Selesai', 'Belum Selesai', 'Menunggu Pembayaran']);
             $table->foreignUuid('customer_id');
             $table->unsignedBigInteger('created_by', false);
 
