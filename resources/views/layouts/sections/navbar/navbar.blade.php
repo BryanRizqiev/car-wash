@@ -77,12 +77,6 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        <i class='ri-settings-4-line ri-22px me-2'></i>
-                        <span class="align-middle">Settings</span>
-                    </a>
-                </li>
-                <li>
                     <div class="dropdown-divider"></div>
                 </li>
                 <li>

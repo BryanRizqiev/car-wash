@@ -50,11 +50,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-5 pb-2 d-flex justify-content-between pt-2 align-items-center">
-                                <a href="{{ url('auth/forgot-password') }}" class="float-end mb-1">
-                                    <span>Forgot Password?</span>
-                                </a>
-                            </div>
 
                             @if ($errors->any())
                                 <div class="alert alert-danger">
