@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\customer\StoreCustomerRequest;
 use App\Http\Requests\customer\UpdateCustomerRequest;
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller

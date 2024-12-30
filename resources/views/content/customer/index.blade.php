@@ -40,8 +40,8 @@
                                 <td>{{ $cust->name }}</td>
                                 <td>{{ $cust->address }}</td>
                                 <td>{{ $cust->phone_number }}</td>
-                                <td>{{ $cust->money_spend }}</td>
-                                <td>{{ $cust->wash_total }}</td>
+                                <td>@rupiahCurrency($cust->money_spend)</td>
+                                <td>{{ $cust->wash_total }} Kali</td>
                                 <td>{{ $cust->last_wash_time }}</td>
                                 <td>
                                     <div class="dropdown">
