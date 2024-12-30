@@ -13,8 +13,6 @@ use App\Http\Controllers\pages\AccountSettingsNotifications;
 use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
-use App\Http\Controllers\authentications\LoginBasic;
-use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\car\CarController;
 use App\Http\Controllers\customer\CustomerController;
@@ -112,6 +110,8 @@ Route::group(['prefix' => 'car', 'middleware' => 'auth'], function () {
   Route::get('/', [CarController::class, 'index'])->name('car');
   Route::get('/new', [CarController::class, 'create'])->name('car.new');
   Route::get('/{id}/edit', [CarController::class, 'edit'])->name('car.edit');
+  Route::get('/{id}/edit/status', [CarController::class, 'editStatus'])->name('car.edit.status');
+  Route::post('/{id}/update/status', [CarController::class, 'updateStatus'])->name('car.update.status');
   Route::post('/{id}/update', [CarController::class, 'update'])->name('car.update');
   Route::post('/store', [CarController::class, 'store'])->name('car.store');
   Route::post('/{id}/delete', [CarController::class, 'delete'])->name('car.delete');

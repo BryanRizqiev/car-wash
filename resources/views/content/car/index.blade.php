@@ -18,7 +18,19 @@
         </div>
 
         <div class="card">
-            <h5 class="card-header">Daftar Mobil</h5>
+            <div class="d-inline"></div>
+            <h5 class="card-header d-inline">Daftar Mobil</h5>
+            <div class="card-header demo-inline-spacing d-inline">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">Status</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="?status=Belum Selesai">Belum Selesai</a></li>
+                        <li><a class="dropdown-item" href="?status=Menunggu Pembayaran">Menunggu Pembayaran</a></li>
+                        <li><a class="dropdown-item" href="?status=Selesai">Selesai</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <thead class="table-light">
@@ -49,9 +61,9 @@
                                             data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
                                         <div class="dropdown-menu">
                                             <a href="{{ route('car.edit', $car->id) }}" class="dropdown-item"
-                                                href="javascript:void(0);"><i class="ri-pencil-line me-1"></i> Edit</a>
+                                                href="javascript:void(0);"><i class="ri-file-edit-line me-1"></i> Edit</a>
 
-                                            <a href="{{ route('car.edit', $car->id) }}" class="dropdown-item"
+                                            <a href="{{ route('car.edit.status', $car->id) }}" class="dropdown-item"
                                                 href="javascript:void(0);"><i class="ri-pencil-line me-1"></i> Ubah
                                                 Status</a>
 

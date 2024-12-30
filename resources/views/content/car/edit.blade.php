@@ -71,7 +71,7 @@
                         <div class="row justify-content-end">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success">Update</button>
-                                <a href="{{ route('car') }}" class="btn btn-warning">Batal</a>
+                                <a href="{{ route('car') }}" class="btn btn-danger">Batal</a>
                             </div>
                         </div>
                     </form>

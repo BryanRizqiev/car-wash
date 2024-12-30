@@ -5,15 +5,18 @@ namespace App\Http\Controllers\car;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\car\StoreCarRequest;
 use App\Http\Requests\car\UpdateCarRequest;
+use App\Http\Requests\car\UpdateStatusRequest;
 use App\Models\Car;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
-        $cars = Car::with('customer')->where('deleted_at', null)->get(['id', 'nopol', 'car_colour', 'price', 'status', 'customer_id', 'created_at']);
+        $status = $req->query('status', 'Belum Selesai');
+        $cars = Car::with('customer')->where('deleted_at', null)->where('status', $status)->get(['id', 'nopol', 'car_colour', 'price', 'status', 'customer_id', 'created_at']);
 
         return view('content.car.index', ['cars' => $cars]);
     }
@@ -31,6 +34,28 @@ class CarController extends Controller
         $customers = Customer::where('deleted_at', null)->get(['id', 'name']);
 
         return view('content.car.edit', ['car' => $car, 'customers' => $customers]);
+    }
+
+    public function editStatus($id)
+    {
+        $car = DB::table('car_washs')->where('id', $id)->first(['id', 'status']);
+        $status = ['Selesai', 'Belum Selesai', 'Menunggu Pembayaran'];
+
+        return view('content.car.change-status', ['car' => $car, 'status' => $status]);
+    }
+
+    public function updateStatus(UpdateStatusRequest $req, $id)
+    {
+        $dataReq = $req->validated();
+        try {
+            DB::table('car_washs')->where('id', $id)->update([
+                'status' => $dataReq['status']
+            ]);
+            return redirect()->route('car')->with('success', 'Berhasil update status data cucian');
+        } catch (\Throwable $th) {
+            info($th->getMessage());
+            return back()->with('error', 'Gagal update status data cucian');
+        }
     }
 
     public function update(UpdateCarRequest $req, $id)
