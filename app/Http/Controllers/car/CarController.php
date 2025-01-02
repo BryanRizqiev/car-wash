@@ -109,7 +109,7 @@ class CarController extends Controller
         try {
             DB::transaction(function () use ($dataReq) {
                 $customer = Customer::find($dataReq['customer_id']);
-                if ($customer->wash_total % 5 === 0 && $customer->wash_total !== 0) {
+                if (($customer->wash_total+1) % 5 === 0 && $customer->wash_total !== 0) {
                     $dataReq['price'] = 0;
                     $customer->wash_total++;
                     $customer->last_wash_time = now();

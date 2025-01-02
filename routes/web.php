@@ -33,5 +33,5 @@ Route::prefix('auth')->group(function () {
   Route::get('/register', [AuthController::class, 'registerIndex'])->name('register');
   Route::post('/register', [AuthController::class, 'register'])->name('register.store');
   Route::post('/login', [AuthController::class, 'login'])->name('login.store');
-  Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+  Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 });
